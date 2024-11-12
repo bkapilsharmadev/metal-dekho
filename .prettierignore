@@ -1,0 +1,3 @@
+node_modules/  # Ignore the node_modules folder
+dist/  # Ignore compiled TypeScript output folder
+*.config.js  # Ignore configuration files
