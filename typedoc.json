@@ -1,0 +1,20 @@
+{
+  "entryPoints": [
+    "src/plugins/error-handler.ts",
+    "src/hooks/request-id.ts",
+    "src/utils/logger.ts",
+    "src/utils/filesystem.ts",
+    "src/utils/error/AppError.ts"
+  ],
+  "out": "docs",
+  "readme": "./docs/README.md",
+  "tsconfig": "tsconfig.json",
+  "exclude": ["**/node_modules/**", "**/dist/**", "**/test/**"],
+  "name": "Metal Dekho",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeExternals": true,
+  "commentStyle": "all",
+  "plugin": ["typedoc-plugin-markdown"]
+}
