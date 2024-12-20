@@ -2,6 +2,7 @@
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import jest from "eslint-plugin-jest";
+import * as importPlugin from "eslint-plugin-import";
 
 export default tseslint.config(
   {
@@ -34,17 +35,31 @@ export default tseslint.config(
     },
   },
   {
-    files: ['tests/**/*.js'],
-    ...jest.configs['flat/recommended'],
+    files: ["tests/**/*.js"],
+    ...jest.configs["flat/recommended"],
     rules: {
-      ...jest.configs['flat/recommended'].rules,
-      'jest/prefer-expect-assertions': 'off',
+      ...jest.configs["flat/recommended"].rules,
+      "jest/prefer-expect-assertions": "off",
     },
   },
   {
+    // Include the import plugin
+    plugins: {
+      import: importPlugin,
+    },
     // Custom rules
     rules: {
       "@typescript-eslint/no-unused-vars": "warn", // Changed to 'warn'
-    }
-  }
+      "import/extensions": [
+        "error",
+        "always",
+        {
+          js: "always",
+          ts: "always",
+          jsx: "always",
+          tsx: "always",
+        },
+      ],
+    },
+  },
 );

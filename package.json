@@ -9,7 +9,7 @@
     "build:dev": "tsc -p tsconfig.dev.json && tsc-alias",
     "build:prod": "tsc -p tsconfig.prod.json && tsc-alias",
     "start": "npm run build:prod && node dist/index.js",
-    "dev": "tsc-watch -p tsconfig.dev.json --onSuccess \"npm run start:alias\"",
+    "dev": "npm run lint && npm run format && tsc-watch -p tsconfig.dev.json --onSuccess \"npm run start:alias\"",
     "start:alias": "tsc-alias -p tsconfig.dev.json && nodemon dist/index.js",
     "lint": "eslint src",
     "format": "prettier --write src/**/*.ts",
@@ -38,17 +38,18 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@eslint/js": "^9.14.0",
+    "@eslint/js": "^9.15.0",
     "@stylistic/eslint-plugin-ts": "^2.10.1",
     "@types/eslint__js": "^8.42.3",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.9.3",
+    "@types/pg": "^8.11.10",
     "@types/uuid": "^10.0.0",
     "concurrently": "^9.1.0",
     "docsify-auto-sidebar": "^1.0.0",
     "esbuild": "^0.24.0",
     "esbuild-plugin-tsc": "^0.4.0",
-    "eslint": "^9.14.0",
+    "eslint": "^9.15.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.31.0",
@@ -64,9 +65,9 @@
     "tsc-alias": "^1.8.10",
     "tsc-watch": "^6.2.1",
     "tsconfig-paths": "^4.2.0",
-    "typedoc": "^0.26.11",
-    "typedoc-plugin-markdown": "^4.2.10",
-    "typescript": "^5.6.3",
-    "typescript-eslint": "^8.13.0"
+    "typedoc": "^0.27.2",
+    "typedoc-plugin-markdown": "^4.3.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.16.0"
   }
 }

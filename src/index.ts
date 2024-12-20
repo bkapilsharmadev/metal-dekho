@@ -1,3 +1,9 @@
+/**
+ * This is the entry point of the application.
+ *
+ * @module index
+ */
+
 import { buildApp } from "./app.js";
 import { APP_PORT, APP_HOST } from "@config/env.config.js";
 

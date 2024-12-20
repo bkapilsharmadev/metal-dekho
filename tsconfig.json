@@ -17,6 +17,7 @@
       "@hooks/*": ["src/hooks/*"],
       "@plugins/*": ["src/plugins/*"],
       "@logs/*": ["src/logs/*"],
+      "@database/*": ["src/database/*"],
     },
     "rootDir": "./src",
     "outDir": "./dist",

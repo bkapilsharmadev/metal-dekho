@@ -8,21 +8,11 @@ import pino, { DestinationStream } from "pino";
 import { multistream } from "pino";
 import * as rfs from "rotating-file-stream";
 import { ensureLogDirExists } from "./filesystem.js";
-import { LOG_DIR, NODE_ENV } from "@config/env.config.js";
+import { LOG_DIR, NODE_ENV } from "@config/env.config";
 
 // Ensure the logs directory exists
 await ensureLogDirExists(LOG_DIR);
 
-/**
- * Creates a rotating file stream for log files. It uses the `rotating-file-stream` package.
- *
- * - Rotates log files after they reach 10MB.
- * - Rotates log files daily.
- * - Compresses rotated log files using gzip.
- * - Stores log files in the directory specified by the LOG_DIR environment variable.
- *
- * @type {rfs.RotatingFileStream}
- */
 const rotatingFileStream = rfs.createStream("app.log", {
   size: "10M", // Rotate after 10MB
   interval: "1d", // Rotate daily
@@ -30,15 +20,6 @@ const rotatingFileStream = rfs.createStream("app.log", {
   path: LOG_DIR, // Directory to store logs
 });
 
-/**
- * Pretty-print transport for development logs.
- *
- * - Logs are colorized for better readability.
- * - Timestamps are displayed in a standard format.
- * - Fields like `pid` and `hostname` are ignored.
- *
- * @type {DestinationStream}
- */
 const prettyTransport = pino.transport({
   target: "pino-pretty",
   options: {
@@ -49,14 +30,6 @@ const prettyTransport = pino.transport({
   },
 }) as DestinationStream;
 
-/**
- * A multistream logger configuration.
- *
- * - Logs are written to both the console (using `pino-pretty`) and a rotating file stream.
- * - Log levels are set based on the environment (`trace` for development, `info` for production).
- *
- * @type {Array<{ stream: DestinationStream }>}
- */
 const streams = [
   { stream: prettyTransport }, // Console logs
   { stream: rotatingFileStream }, // File logs
@@ -76,8 +49,6 @@ const streams = [
  * ```
  *
  * @type {Logger}
- *
- *  @see {@link rotatingFileStream}
  */
 export const customLogger = pino(
   {

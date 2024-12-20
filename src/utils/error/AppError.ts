@@ -1,52 +1,32 @@
-/**
- * @internal
- * Represents a custom application error with HTTP status codes, error codes, and additional data.
- */
+import { CustomErrorOptions } from "./error.types";
 
 export class AppError extends Error {
-  /**
-   * The HTTP status code associated with the error.
-   * @type {number}
-   */
-  public httpStatus: number;
-
-  /**
-   * An optional error code that can be used to identify the error.
-   * @type {string}
-   */
+  public httpStatus?: number;
   public errorCode?: string;
-
-  /**
-   * An optional data object that can be used to provide additional information about the error.
-   * @type {Record<string, unknown>}
-   */
   public data?: Record<string, unknown>;
 
   /**
-   * Creates a new instance of the AppError class.
-   * @param {string} message The error message.
-   * @param {number} httpStatus The HTTP status code.
-   * @param {string} [errorCode] An optional error code.
-   * @param {Record<string, unknown>} [data] An optional data object.
+   * @param options - {@link ErrorOptions} An object containing error details:
+   *   - `message` (required): A descriptive message for the error.
+   *   - `httpStatus` (optional): The HTTP status code. Default is `500`.
+   *   - `errorCode` (optional): A specific error code for categorization.
+   *   - `data` (optional): Additional contextual information about the error.
    */
-  constructor(
-    message: string,
-    httpStatus: number,
-    errorCode?: string,
-    data?: Record<string, unknown>,
-  ) {
+  constructor({
+    message,
+    httpStatus = 500,
+    errorCode,
+    data,
+  }: CustomErrorOptions) {
     super(message);
     this.httpStatus = httpStatus;
     this.errorCode = errorCode;
     this.data = data;
 
+    this.name = "AppError";
     Object.setPrototypeOf(this, new.target.prototype);
   }
 
-  /**
-   *
-   * @returns {Object} Returns a JSON representation of the error.
-   */
   public toJSON() {
     return {
       name: this.name,

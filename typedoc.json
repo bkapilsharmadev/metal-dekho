@@ -6,7 +6,7 @@
     "src/utils/filesystem.ts",
     "src/utils/error/AppError.ts"
   ],
-  "out": "docs",
+  "out": "docs/typedoc",
   "readme": "./docs/README.md",
   "tsconfig": "tsconfig.json",
   "exclude": ["**/node_modules/**", "**/dist/**", "**/test/**"],
@@ -16,5 +16,5 @@
   "excludeProtected": true,
   "excludeExternals": true,
   "commentStyle": "all",
-  "plugin": ["typedoc-plugin-markdown"]
+  // "plugin": ["typedoc-plugin-markdown"]
 }
