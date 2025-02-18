@@ -1,4 +1,4 @@
-import { DatabaseError } from "./DatabaseError.js";
+import { DatabaseError } from "./DatabaseError";
 
 export class QuerySyntaxError extends DatabaseError {
   /**

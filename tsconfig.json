@@ -3,21 +3,47 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "baseUrl": "./",
     "paths": {
-      "@src/*": ["src/*"],
-      "@tests/*": ["tests/*"],
-      "@routes/*": ["src/routes/*"],
-      "@controllers/*": ["src/controllers/*"],
-      "@services/*": ["src/services/*"],
-      "@models/*": ["src/models/*"],
-      "@config/*": ["src/config/*"],
-      "@utils/*": ["src/utils/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@plugins/*": ["src/plugins/*"],
-      "@logs/*": ["src/logs/*"],
-      "@database/*": ["src/database/*"],
+      "@src/*": [
+        "src/*"
+      ],
+      "@tests/*": [
+        "tests/*"
+      ],
+      "@routes/*": [
+        "src/routes/*"
+      ],
+      "@controllers/*": [
+        "src/controllers/*"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@models/*": [
+        "src/models/*"
+      ],
+      "@config/*": [
+        "src/config/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
+      ],
+      "@plugins/*": [
+        "src/plugins/*"
+      ],
+      "@logs/*": [
+        "src/logs/*"
+      ],
+      "@database/*": [
+        "src/database/*"
+      ],
     },
     "rootDir": "./src",
     "outDir": "./dist",
@@ -29,5 +55,13 @@
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
   },
-  "exclude": ["node_modules", "dist", "tests"]
+  "tsc-alias": {
+    "resolveFullPaths": true,
+    "verbose": false
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests"
+  ],
 }

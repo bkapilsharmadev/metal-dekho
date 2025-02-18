@@ -7,8 +7,8 @@
 import pino, { DestinationStream } from "pino";
 import { multistream } from "pino";
 import * as rfs from "rotating-file-stream";
-import { ensureLogDirExists } from "./filesystem.js";
-import { LOG_DIR, NODE_ENV } from "@config/env.config";
+import { ensureLogDirExists } from "./filesystem";
+import { LOG_DIR, NODE_ENV } from "@src/config/env.config";
 
 // Ensure the logs directory exists
 await ensureLogDirExists(LOG_DIR);
@@ -50,9 +50,25 @@ const streams = [
  *
  * @type {Logger}
  */
-export const customLogger = pino(
+const customLogger = pino(
   {
     level: NODE_ENV === "production" ? "info" : "trace",
   },
   multistream(streams),
 );
+
+export const logError = (
+  level: "warn" | "error",
+  err: unknown,
+  msg: string,
+) => {
+  customLogger[level](
+    {
+      err:
+        err instanceof Error ? { message: err.message, stack: err.stack } : err,
+    },
+    msg,
+  );
+};
+
+export default customLogger;

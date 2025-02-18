@@ -1,3 +1,4 @@
+import customLogger from "@src/utils/logger";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -12,21 +13,21 @@ interface EnvVariables {
   NODE_ENV: EnvVar;
   LOG_DIR: EnvVar;
 
-  // Database Variables
-  PG_MASTER_HOST: EnvVar;
-  PG_MASTER_PORT: EnvVar;
-  PG_MASTER_USER: EnvVar;
-  PG_MASTER_PASSWORD: EnvVar;
-  PG_MASTER_DB: EnvVar;
+  // // Database Variables
+  // PG_MASTER_HOST: EnvVar;
+  // PG_MASTER_PORT: EnvVar;
+  // PG_MASTER_USER: EnvVar;
+  // PG_MASTER_PASSWORD: EnvVar;
+  // PG_MASTER_DB: EnvVar;
 
-  PG_SLAVE1_HOST: EnvVar;
-  PG_SLAVE1_PORT: EnvVar;
-  PG_SLAVE1_USER: EnvVar;
-  PG_SLAVE1_PASSWORD: EnvVar;
-  PG_SLAVE1_DB: EnvVar;
+  // PG_SLAVE1_HOST: EnvVar;
+  // PG_SLAVE1_PORT: EnvVar;
+  // PG_SLAVE1_USER: EnvVar;
+  // PG_SLAVE1_PASSWORD: EnvVar;
+  // PG_SLAVE1_DB: EnvVar;
 
   MONGO_MASTER_URI: EnvVar;
-  MONGO_REPLICA1_URI: EnvVar;
+  // MONGO_REPLICA1_URI: EnvVar;
 }
 
 const envVariables: EnvVariables = {
@@ -35,23 +36,23 @@ const envVariables: EnvVariables = {
   APP_HOST: { value: process.env.APP_HOST, required: false },
   LOG_DIR: { value: process.env.LOG_DIR, required: true },
 
-  // PostgreSQL Master
-  PG_MASTER_HOST: { value: process.env.PG_MASTER_HOST, required: true },
-  PG_MASTER_PORT: { value: process.env.PG_MASTER_PORT, required: true },
-  PG_MASTER_USER: { value: process.env.PG_MASTER_USER, required: true },
-  PG_MASTER_PASSWORD: { value: process.env.PG_MASTER_PASSWORD, required: true },
-  PG_MASTER_DB: { value: process.env.PG_MASTER_DB, required: true },
+  // // PostgreSQL Master
+  // PG_MASTER_HOST: { value: process.env.PG_MASTER_HOST, required: true },
+  // PG_MASTER_PORT: { value: process.env.PG_MASTER_PORT, required: true },
+  // PG_MASTER_USER: { value: process.env.PG_MASTER_USER, required: true },
+  // PG_MASTER_PASSWORD: { value: process.env.PG_MASTER_PASSWORD, required: true },
+  // PG_MASTER_DB: { value: process.env.PG_MASTER_DB, required: true },
 
-  // PostgreSQL Slave 1
-  PG_SLAVE1_HOST: { value: process.env.PG_SLAVE1_HOST, required: true },
-  PG_SLAVE1_PORT: { value: process.env.PG_SLAVE1_PORT, required: true },
-  PG_SLAVE1_USER: { value: process.env.PG_SLAVE1_USER, required: true },
-  PG_SLAVE1_PASSWORD: { value: process.env.PG_SLAVE1_PASSWORD, required: true },
-  PG_SLAVE1_DB: { value: process.env.PG_SLAVE1_DB, required: true },
+  // // PostgreSQL Slave 1
+  // PG_SLAVE1_HOST: { value: process.env.PG_SLAVE1_HOST, required: true },
+  // PG_SLAVE1_PORT: { value: process.env.PG_SLAVE1_PORT, required: true },
+  // PG_SLAVE1_USER: { value: process.env.PG_SLAVE1_USER, required: true },
+  // PG_SLAVE1_PASSWORD: { value: process.env.PG_SLAVE1_PASSWORD, required: true },
+  // PG_SLAVE1_DB: { value: process.env.PG_SLAVE1_DB, required: true },
 
   // MongoDB
   MONGO_MASTER_URI: { value: process.env.MONGO_MASTER_URI, required: true },
-  MONGO_REPLICA1_URI: { value: process.env.MONGO_REPLICA1_URI, required: true },
+  // MONGO_REPLICA1_URI: { value: process.env.MONGO_REPLICA1_URI, required: true },
 };
 
 const getEnvVariable = (key: keyof EnvVariables): string => {
@@ -62,28 +63,43 @@ const getEnvVariable = (key: keyof EnvVariables): string => {
   return envVar.value ?? "";
 };
 
-export const NODE_ENV = getEnvVariable("NODE_ENV") || "development";
-export const APP_PORT = getEnvVariable("APP_PORT") || "3000";
-export const APP_HOST = getEnvVariable("APP_HOST") || "localhost";
-export const LOG_DIR = getEnvVariable("LOG_DIR") || "./logs";
+// Environment Variables
+let NODE_ENV: string;
+let APP_PORT: string;
+let APP_HOST: string;
+let LOG_DIR: string;
+let MONGO_MASTER_URI: string;
 
-// PostgreSQL Config
-export const PG_MASTER = {
-  host: getEnvVariable("PG_MASTER_HOST"),
-  port: Number(getEnvVariable("PG_MASTER_PORT")),
-  user: getEnvVariable("PG_MASTER_USER"),
-  password: getEnvVariable("PG_MASTER_PASSWORD"),
-  database: getEnvVariable("PG_MASTER_DB"),
-};
+try {
+  NODE_ENV = getEnvVariable("NODE_ENV") || "development";
+  APP_PORT = getEnvVariable("APP_PORT") || "3000";
+  APP_HOST = getEnvVariable("APP_HOST") || "localhost";
+  LOG_DIR = getEnvVariable("LOG_DIR") || "./logs";
 
-export const PG_SLAVE1 = {
-  host: getEnvVariable("PG_SLAVE1_HOST"),
-  port: Number(getEnvVariable("PG_SLAVE1_PORT")),
-  user: getEnvVariable("PG_SLAVE1_USER"),
-  password: getEnvVariable("PG_SLAVE1_PASSWORD"),
-  database: getEnvVariable("PG_SLAVE1_DB"),
-};
+  // // PostgreSQL Config
+  // export const PG_MASTER = {
+  //   host: getEnvVariable("PG_MASTER_HOST"),
+  //   port: Number(getEnvVariable("PG_MASTER_PORT")),
+  //   user: getEnvVariable("PG_MASTER_USER"),
+  //   password: getEnvVariable("PG_MASTER_PASSWORD"),
+  //   database: getEnvVariable("PG_MASTER_DB"),
+  // };
 
-// MongoDB Config
-export const MONGO_MASTER_URI = getEnvVariable("MONGO_MASTER_URI");
-export const MONGO_REPLICA1_URI = getEnvVariable("MONGO_REPLICA1_URI");
+  // export const PG_SLAVE1 = {
+  //   host: getEnvVariable("PG_SLAVE1_HOST"),
+  //   port: Number(getEnvVariable("PG_SLAVE1_PORT")),
+  //   user: getEnvVariable("PG_SLAVE1_USER"),
+  //   password: getEnvVariable("PG_SLAVE1_PASSWORD"),
+  //   database: getEnvVariable("PG_SLAVE1_DB"),
+  // };
+
+  // MongoDB Config
+  MONGO_MASTER_URI = getEnvVariable("MONGO_MASTER_URI");
+  // export const MONGO_REPLICA1_URI = getEnvVariable("MONGO_REPLICA1_URI");
+} catch (err: unknown) {
+  console.log(err);
+  console.error("❌Failed to load environment variables.");
+  process.exit(1);
+}
+
+export { NODE_ENV, APP_PORT, APP_HOST, LOG_DIR, MONGO_MASTER_URI };

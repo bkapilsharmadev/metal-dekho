@@ -1,5 +1,5 @@
-import { DatabaseError } from "./DatabaseError.js";
-import { CustomErrorOptions } from "../../error.types.js";
+import { DatabaseError } from "./DatabaseError";
+import { CustomErrorOptions } from "../../error.types";
 
 export class DuplicateEntryError extends DatabaseError {
   /**

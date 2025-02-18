@@ -7,11 +7,16 @@
  */
 
 import Fastify, { FastifyInstance } from "fastify";
-import { customLogger } from "@utils/logger.js";
-import requestIdHook from "@hooks/request-id.js";
-import customErrorHandler from "@plugins/error-handler.js";
-import routes from "@routes/index.js";
+import customLogger from "@utils/logger";
+import requestIdHook from "@hooks/request-id";
+import customErrorHandler from "@plugins/error-handler";
+import routes from "@routes/index";
 import { nanoid } from "nanoid";
+import mongoose from "@database/mongodb/mongoose-conn";
+import { time } from "console";
+
+// Connect to MongoDB
+const dataDb = mongoose;
 
 /**
  *

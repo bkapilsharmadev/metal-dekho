@@ -1,8 +1,20 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "sourceMap": false,
-    "removeComments": true
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "target": "ESNext"
   },
-  "include": ["src/**/*.ts"]
+  "tsc-alias": {
+    "plugins": [
+      {
+        "transform": "./add-js-ext.js"
+      }
+    ]
+  },
+  "include": [
+    "src/**/*"
+  ]
 }

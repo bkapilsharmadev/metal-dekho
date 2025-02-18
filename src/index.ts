@@ -4,13 +4,15 @@
  * @module index
  */
 
-import { buildApp } from "./app.js";
-import { APP_PORT, APP_HOST } from "@config/env.config.js";
+import { buildApp } from "./app";
+import { APP_PORT, APP_HOST } from "@src/config/env.config";
+import { connectWithRetry } from "./database/mongodb/mongoose-conn";
 
 const startServer = async () => {
   const app = buildApp();
 
   try {
+    await connectWithRetry();
     await app.listen({ port: Number(APP_PORT) });
     console.log(`Server is running on http://${APP_HOST}:${APP_PORT}`);
   } catch (err) {

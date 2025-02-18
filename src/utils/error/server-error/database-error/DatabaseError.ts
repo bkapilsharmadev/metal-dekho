@@ -1,5 +1,5 @@
-import { CustomErrorOptions } from "../../error.types.js";
-import { ServerError } from "../ServerError.js";
+import { CustomErrorOptions } from "../../error.types";
+import { ServerError } from "../ServerError";
 
 export class DatabaseError extends ServerError {
   /**

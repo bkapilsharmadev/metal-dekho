@@ -1,5 +1,5 @@
-import { AppError } from "../AppError.js";
-import { CustomErrorOptions } from "../error.types.js";
+import { AppError } from "../AppError";
+import { CustomErrorOptions } from "../error.types";
 
 export class ServerError extends AppError {
   /**

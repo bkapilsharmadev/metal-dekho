@@ -1,6 +1,6 @@
-import { DatabaseError } from "@utils/error/server-error/database-error/DatabaseError.js";
-import { PostgresClusterConfig } from "./postgres-cluster.types.js";
-import PostgresCluster from "@database/postgres/PostgresCluster.js";
+import { DatabaseError } from "@utils/error/server-error/database-error/DatabaseError";
+import { PostgresClusterConfig } from "./postgres-cluster.types";
+import PostgresCluster from "@database/postgres/PostgresCluster";
 
 class PgClusters {
   private clusters: Map<string, PostgresCluster>;

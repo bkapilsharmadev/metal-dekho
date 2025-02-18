@@ -1,0 +1,74 @@
+```
+└── 📁.husky
+    └── 📁_
+        └── .gitignore
+        └── applypatch-msg
+        └── commit-msg
+        └── h
+        └── husky.sh
+        └── post-applypatch
+        └── post-checkout
+        └── post-commit
+        └── post-merge
+        └── post-rewrite
+        └── pre-applypatch
+        └── pre-auto-gc
+        └── pre-commit
+        └── pre-merge-commit
+        └── pre-push
+        └── pre-rebase
+        └── prepare-commit-msg
+    └── pre-commit
+└── 📁src
+    └── 📁config
+        └── env.config.ts
+    └── 📁database
+        └── DATABASE.md
+        └── 📁mongodb
+        └── 📁postgres
+            └── PoolManager.ts
+            └── postgres-cluster.types.ts
+            └── PostgresCluster.ts
+    └── 📁hooks
+        └── request-id.ts
+    └── 📁plugins
+        └── error-handler.ts
+    └── 📁routes
+        └── index.ts
+    └── 📁utils
+        └── 📁error
+            └── AppError.ts
+            └── 📁client-error
+                └── AuthenticationError.ts
+                └── AuthorizationError.ts
+                └── ClientError.ts
+                └── NotFoundError.ts
+                └── ValidationError.ts
+            └── error.types.ts
+            └── 📁server-error
+                └── 📁database-error
+                    └── ConnectionError.ts
+                    └── DatabaseError.ts
+                    └── DuplicateEntryError.ts
+                    └── ForeignKeyConstraintError.ts
+                    └── QuerySyntaxError.ts
+                    └── TransactionError.ts
+                └── ServerError.ts
+        └── filesystem.ts
+        └── logger.ts
+    └── app.ts
+    └── index.ts
+└── 📁tests
+    └── 📁integration
+    ├── unit
+└── .gitignore
+└── .prettierignore
+└── .prettierrc
+└── docker-compose.yml
+└── Dokerfile
+└── eslint.config.mjs
+└── tsconfig.dev.json
+└── tsconfig.json
+└── tsconfig.prod.json
+└── typedoc.json
+```

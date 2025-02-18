@@ -1,5 +1,5 @@
-import { CustomErrorOptions } from "../error.types.js";
-import { ClientError } from "./ClientError.js";
+import { CustomErrorOptions } from "../error.types";
+import { ClientError } from "./ClientError";
 
 export class AuthenticationError extends ClientError {
   /**

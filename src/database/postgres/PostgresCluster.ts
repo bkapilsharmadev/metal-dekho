@@ -1,6 +1,6 @@
 import { Pool, PoolConfig } from "pg";
-import { DatabaseError } from "@src/utils/error/server-error/database-error/DatabaseError.js";
-import { customLogger } from "@utils/logger.js";
+import { DatabaseError } from "@src/utils/error/server-error/database-error/DatabaseError";
+import customLogger from "@utils/logger";
 
 /**
  * A class representing a PostgreSQL cluster.
