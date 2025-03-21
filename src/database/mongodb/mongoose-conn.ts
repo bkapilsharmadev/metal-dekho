@@ -11,8 +11,7 @@ let isShuttingDown = false;
 let isInitialConnection = true;
 let isReconnecting = false;
 
-const connectWithRetry = async (): Promise<void> => {
-  console.log("retries>>>", retries);
+const connectMongoWithRetry = async (): Promise<void> => {
   if (isShuttingDown) return;
 
   try {
@@ -53,7 +52,7 @@ const connectWithRetry = async (): Promise<void> => {
     );
 
     await new Promise((resolve) => setTimeout(resolve, delay));
-    return connectWithRetry();
+    return connectMongoWithRetry();
   }
 };
 
@@ -71,7 +70,7 @@ const scheduleReconnect = (reason: string, err?: unknown) => {
   if (reconnectTimeout) clearTimeout(reconnectTimeout);
 
   reconnectTimeout = setTimeout(() => {
-    void connectWithRetry();
+    void connectMongoWithRetry();
     reconnectTimeout = null; // Reset after execution
   }, 1000);
 };
@@ -122,4 +121,4 @@ mongoose.connection.on("connecting", () => {
 });
 
 export default mongoose;
-export { connectWithRetry };
+export { connectMongoWithRetry };

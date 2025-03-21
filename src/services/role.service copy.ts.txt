@@ -1,0 +1,91 @@
+import RoleRepository from "@repositories/role.repository";
+import { IRole } from "@models/role.model";
+import { FastifyBaseLogger } from "fastify";
+import { CreateRoleDTO, UpdateRoleDTO, RoleParamDTO } from "@schemas/role.schema";
+
+const RoleService = {
+  createRole: async (
+    data: CreateRoleDTO,
+    logger: FastifyBaseLogger,
+  ): Promise<IRole> => {
+    logger.info("Creating a new role");
+    return await RoleRepository.create(data);
+  },
+
+  createRoles: async (data: Partial<IRole>[]): Promise<IRole[]> => {
+    return await RoleRepository.createMany(data);
+  },
+
+  getAllRoles: async (logger: FastifyBaseLogger): Promise<IRole[]> => {
+    logger.info("Fetching all roles");
+    return await RoleRepository.findAll();
+  },
+
+  getRoleById: async (
+    id: string,
+    logger: FastifyBaseLogger,
+  ): Promise<IRole | null> => {
+    logger.info(`Service: Fetching role with ID ${id}`);
+    return await RoleRepository.findById(id);
+  },
+
+  updateRole: async (
+    id: string,
+    data: UpdateRoleDTO,
+    logger: FastifyBaseLogger
+  ): Promise<IRole | null> => {
+    logger.info(`Service: Updating role with ID ${id}`);
+
+    try {
+      const updateFields: Partial<Pick<IRole, "name" | "description" | "active">> = {};
+
+      if (data.name) updateFields.name = data.name;
+      if (data.description) updateFields.description = data.description;
+      if (data.active !== undefined) updateFields.active = data.active;
+
+      // **Step 1: Update basic fields first**
+      if (Object.keys(updateFields).length > 0) {
+        await RoleRepository.update(id, { $set: updateFields });
+      }
+
+      // **Step 2: Add new permissions if provided**
+      if (data.permissionsToAdd && data.permissionsToAdd.length > 0) {
+        await RoleRepository.update(id, { $addToSet: { permissions: { $each: data.permissionsToAdd } } });
+      }
+
+      // **Step 3: Remove permissions if provided**
+      if (data.permissionsToRemove && data.permissionsToRemove.length > 0) {
+        await RoleRepository.update(id, { $pull: { permissions: { $in: data.permissionsToRemove } } });
+      }
+
+      // **Step 4: Fetch the updated role**
+      const updatedRole = await RoleRepository.findById(id);
+
+      if (!updatedRole) {
+        logger.warn(`Role not found for ID ${id}`);
+        return null;
+      }
+
+      logger.info(`Successfully updated role ID ${id}`);
+      return updatedRole;
+    } catch (error) {
+      if (error instanceof Error) {
+        logger.error(`Error updating role ID ${id}: ${error.message}`);
+        throw new Error(`Failed to update role: ${error.message}`);
+      } else {
+        logger.error(`Error updating role ID ${id}: ${String(error)}`);
+        throw new Error(`Failed to update role: ${String(error)}`);
+      }
+    }
+  },
+
+  deleteRole: async (
+    id: string,
+    logger: FastifyBaseLogger,
+  ): Promise<IRole | null> => {
+    logger.info(`Service: Deleting role with ID ${id}`);
+    return await RoleRepository.delete(id);
+  },
+};
+
+export default RoleService;

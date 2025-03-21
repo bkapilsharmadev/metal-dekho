@@ -7,30 +7,12 @@
  */
 
 import Fastify, { FastifyInstance } from "fastify";
-import customLogger from "@utils/logger";
 import requestIdHook from "@hooks/request-id";
 import customErrorHandler from "@plugins/error-handler";
-import routes from "@routes/index";
-import { nanoid } from "nanoid";
-import mongoose from "@database/mongodb/mongoose-conn";
-import { time } from "console";
+import routes from "@routes/v1/index";
 
-// Connect to MongoDB
-const dataDb = mongoose;
-
-/**
- *
- * @returns {FastifyInstance}
- */
 export const buildApp = (): FastifyInstance => {
   const app = Fastify({ logger: false });
-
-  // Add request id and logger to request
-  app.addHook("onRequest", async (request, reply) => {
-    const requestId = nanoid();
-    request.id = requestId;
-    request.log = customLogger.child({ requestId });
-  });
 
   // Register hooks
   app.register(requestIdHook);

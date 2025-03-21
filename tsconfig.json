@@ -26,6 +26,9 @@
       "@models/*": [
         "src/models/*"
       ],
+      "@repositories/*": [
+        "src/repositories/*"
+      ],
       "@config/*": [
         "src/config/*"
       ],
@@ -43,6 +46,9 @@
       ],
       "@database/*": [
         "src/database/*"
+      ],
+      "@schemas/*": [
+        "src/schemas/*"
       ],
     },
     "rootDir": "./src",

@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 import fp from "fastify-plugin";
+import customLogger from "@utils/logger";
 
 /* eslint-disable @typescript-eslint/require-await */
 /**
@@ -24,6 +25,16 @@ export default fp(async (fastify) => {
   fastify.addHook("onRequest", async (request, reply) => {
     const requestId = nanoid();
     request.id = requestId;
-    request.log = request.log.child({ requestId });
+
+    //attach custom logger with requestId
+    request.log = customLogger.child({ requestId });
+
+    console.log("-----------------------------------------------------------");
+    // Log incoming request
+    request.log.info({
+      method: request.method,
+      url: request.url,
+      requestId,
+    });
   });
 });
